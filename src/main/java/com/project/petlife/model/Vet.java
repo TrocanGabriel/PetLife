@@ -33,7 +33,7 @@ public class Vet {
     private int age;
 
     @ManyToOne
-    @Column(name = "clinic_id", nullable = false)
+    @JoinColumn(name = "clinic_id", nullable = false)
     @Getter
     @Setter
     private  Clinic clinic;

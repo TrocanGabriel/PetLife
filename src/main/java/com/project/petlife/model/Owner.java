@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -46,5 +47,10 @@ public class Owner {
     @Getter
     @Setter
     private String city;
+
+    @OneToMany(mappedBy = "owner")
+    @Getter
+    @Setter
+    private Set<Pet> pets;
 
 }

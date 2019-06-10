@@ -37,6 +37,8 @@ public class Clinic {
     private int programEnd;
 
     @OneToMany(mappedBy = "clinic")
+    @Getter
+    @Setter
     private Set<Vet> vets;
 
 

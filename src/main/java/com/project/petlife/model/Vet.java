@@ -12,6 +12,16 @@ import java.util.Set;
 @Table(name = "vets")
 public class Vet {
 
+    public Vet() {
+    }
+
+    public Vet(String firstName, String lastName, int age, Clinic clinic) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.clinic = clinic;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter

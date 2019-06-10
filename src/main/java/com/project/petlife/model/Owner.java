@@ -21,7 +21,7 @@ public class Owner {
     @Column(name = "last_name")
     @Getter
     @Setter
-    private String lastName;
+    public String lastName;
 
     @Column(name = "first_name")
     @Getter
@@ -47,6 +47,11 @@ public class Owner {
     @Getter
     @Setter
     private String city;
+
+    @Column(name = "cnp")
+    @Getter
+    @Setter
+    private String cnp;
 
     @OneToMany(mappedBy = "owner")
     @Getter

@@ -218,6 +218,7 @@ optgroup {
     font-weight: bold;
 }
 table {
+
     border-collapse: collapse;
     border-spacing: 0;
 }
@@ -2295,6 +2296,7 @@ th {
     width: 100%;
     max-width: 100%;
     margin-bottom: 20px;
+    margin-left: 5px;
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,

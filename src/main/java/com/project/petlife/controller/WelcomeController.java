@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
@@ -30,6 +32,12 @@ public class WelcomeController {
         model.addAttribute("clinics", results);
 
         return "welcome";
+    }
+
+    @GetMapping("/createAppointment/{id}")
+    public String addAppointment(@PathVariable  int id, Model model ){
+        model.addAttribute("clinic",id);
+        return "/appointments/addAppointment";
     }
 
 

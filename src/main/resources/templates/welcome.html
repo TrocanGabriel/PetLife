@@ -2,72 +2,49 @@
 
 <html xmlns:th="https://www.thymeleaf.org">
 
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap.min.css"
-      th:href="@{/webjars/bootstrap/2.3.0/css/bootstrap.min.css}" rel="stylesheet" />
-
-
-<!--<link href="../../../resources/css/petclinic.css"-->
-<!--      th:href="@{/resources/css/petclinic.css}" rel="stylesheet" />-->
-
-
-<link href="../static/css/header.css"
-      th:href="@{/css/header.css}" rel="stylesheet" />
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"
-        th:src="@{/webjars/jquery/1.9.0/jquery.js}"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"
-        th:src="@{/webjars/jquery-ui/1.9.2/js/jquery-ui-1.9.2.custom.js}"></script>
-
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css"
-      th:href="@{/webjars/jquery-ui/1.9.2/css/smoothness/jquery-ui-1.9.2.custom.css}"
-      rel="stylesheet" />
-<!--<head lang="en" th:replace="/fragments/header :: header"> </head>-->
+<head lang="en" >
+    <link href="../static/css/header.css"
+          th:href="@{/css/header.css}" rel="stylesheet" />
+</head>
 
 <body>
-<!--<div th:insert="~{fragments/header.html :: header}"></div>-->
+<div th:replace="fragments/header.html :: header"></div>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Home</a></li>
-                    <li class="active"><a href="/specialty">Specialties</a></li>
-                    <li class="active"><a href="/register">Register</a></li>
-                    <li class="active"><a href="/appointment">Appointments</a></li>
-                    <li class="active"><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 <div class="clinics">
-    <h2>Welcome</h2>
+    <h2 style="text-align: center">Welcome</h2>
     <div class="row">
         <div class="col-md-12">
             <img class="img-responsive"  th:src="@{/images/petshome.jpeg}"/>
-            <p>
+            <p style="margin-left: 200px">
                 Description
             </p>
         </div>
 </div>
     <div>
-        <h2>Clinics available</h2>
+        <h2 style="text-align: center">Clinics available</h2>
         <table id="clinics" class="table table-striped">
             <thead>
             <tr>
-                <th style="width: 150px;">Name</th>
-                <th style="width: 200px;">Address</th>
-                <th style="width: 120px">Phone</th>
-                <th>Vets</th>
+                <th style="width: 20%;" >Name</th>
+                <th style="width: 20%;">Address</th>
+                <th style="width: 20%;">Phone</th>
+                <th style="width: 20%;">Program</th>
+                <th style="width: 20%;">Appointment</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="clinic : ${clinics}">
+            <tr  th:each="clinic : ${clinics}">
                 <td>
                     <a th:href="@{/clinics/__${clinic.id}__}" th:text="${clinic.name}"/></a>
                 </td>
                 <td th:text="${clinic.address}"/>
                 <td th:text="${clinic.phone}"/>
-                <td><span th:each="pet : ${clinic.vets}" th:text="${vet.lastName + ' ' + vet.firstName} "/></td>
+                <td th:text="${clinic.programStart + ' - ' +  clinic.programEnd}"/>
+                <td><form action="#"  th:action = "@{/createAppointment/{id}(id=${clinic.id})}" method = "GET">
+                        <button  >Make appointment</button>
+                    </form>
+                </td>
+
             </tr>
             </tbody>
         </table>

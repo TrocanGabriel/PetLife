@@ -11,16 +11,16 @@
 <div th:replace="fragments/header.html :: header"></div>
 
 <div class="clinics">
-    <h2 style="text-align: center">Welcome</h2>
-    <div class="row">
-        <div class="col-md-12">
-            <img class="img-responsive"  th:src="@{/images/petshome.jpeg}"/>
-            <p style="margin-left: 200px">
-                Description
-            </p>
-        </div>
-</div>
+    <h2 style=" margin-top: 10%; text-align: center">Welcome</h2>
     <div>
+        <div style="text-align: center; display:flex">
+            <img class="img-responsive"  th:src="@{/images/petshome.jpeg}" >
+            <p>Description</p>
+        </div>
+
+    </div>
+    <div>
+
         <h2 style="text-align: center">Clinics available</h2>
         <table id="clinics" class="table table-striped">
             <thead>

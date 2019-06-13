@@ -30,4 +30,15 @@ public class Pet {
     @Setter
     @ManyToOne
     private Owner owner;
+
+    public Pet() {
+    }
+
+    public Pet(String name, int age, Owner owner) {
+        this.name = name;
+        this.age = age;
+        this.owner = owner;
+    }
+
+
 }

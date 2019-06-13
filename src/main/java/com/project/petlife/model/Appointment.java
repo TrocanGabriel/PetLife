@@ -38,7 +38,7 @@ public class Appointment {
     @OneToOne(fetch = FetchType.LAZY)
     private Pet pet;
 
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_cnp")
     @Getter
     @Setter
     @OneToOne(fetch = FetchType.LAZY)

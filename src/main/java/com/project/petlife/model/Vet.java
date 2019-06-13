@@ -57,4 +57,13 @@ public class Vet {
             inverseJoinColumns = {@JoinColumn(name = "specialty_id")}
     )
     private Set<Specialty> specialties = new HashSet<>();
+
+
+    public Vet(String firstName, String lastName, int age, Clinic clinic, Set<Specialty> specialties) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.clinic = clinic;
+        this.specialties = specialties;
+    }
 }

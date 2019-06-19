@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" >
 
 <head lang="en" >
     <link href="../static/css/header.css"
@@ -8,10 +8,10 @@
 </head>
 
 <body>
-<div th:replace="fragments/header.html :: header"></div>
-
+<!--<div th:replace="fragments/header.html :: header"></div>-->
+<div th:replace="~{fragments/header :: layout(~{::body},'home')}"></div>
 <div class="clinics">
-    <h2 style=" margin-top: 10%; text-align: center">Welcome</h2>
+    <h2 style=" margin-top:5%; text-align: center">Welcome</h2>
     <div>
         <div style="text-align: center; display:flex">
             <img class="img-responsive"  th:src="@{/images/petshome.jpeg}" >

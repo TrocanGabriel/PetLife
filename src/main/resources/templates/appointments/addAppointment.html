@@ -3,15 +3,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link href="../static/css/header.css"
           th:href="@{/css/header.css}" rel="stylesheet" />
+
 </head>
 
-<div th:replace="fragments/header.html :: header"></div>
+<div th:replace="fragments/header.html :: layout (~{::body},'appointments')"></div>
 <div style="margin-top: 9%">
 <h2>Add Appointment</h2>
 
 
-<form action="#" th:action="@{/createAppointment}" th:object="${appointment}" method="post">
-    <p>Clinic: <input type="text" th:field="*{clinic.name}"  /></p>
+<form action="#" th:action="@{/appointments/createAppointment}" th:object="${appointment}" method="POST">
+<!--    <p>Clinic: <input type="text" th:field="*{clinic.name}"  /></p>-->
+    <div class="form-group blu-margin">
+        <select class="form-control" th:field="*{clinic.name}"  id="name">
+            <option value="0">Select Clinic</option>
+            <option th:each="clinic : ${clinics}" th:value="${clinic.name}" th:text="${clinic.name}"></option>
+        </select>
+    </div>
     <p>Description: <input type="text" th:field="*{description}" /></p>
     <p>Owner CNP: <input type="text" th:field="*{owner.cnp}" id="ownerCNP"/> </p>
     <div class="form-group">

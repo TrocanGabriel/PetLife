@@ -1,25 +1,48 @@
+<!doctype html>
+<html th:fragment="layout (template, menu)">
 
-
-<!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
 <head>
 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
+<body>
 
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
 
-    <div  th:fragment="header" class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/">Home</a></li>
-                    <li class="active"><a href="/specialty">Specialties</a></li>
-                    <li class="active"><a href="/register">Register</a></li>
-                    <li class="active"><a href="/appointment">Appointments</a></li>
-                    <li class="active"><a href="/contact">Contact</a></li>
-                </ul>
-            </div>
+        <div class="navbar-collapse collapse" id="main-navbar">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li th:fragment="menuItem (path,active,title,glyph,text)" class="active" th:class="${active==menu ? 'active' : ''}">
+                    <a th:href="@{__${path}__}" th:title="${title}">
+                        <span th:text="${text}">Template</span>
+                    </a>
+                </li>
+
+                <li th:replace="::menuItem ('/','home','home page','home','Home')">
+                    <span>Home</span>
+                </li>
+
+                <li th:replace="::menuItem ('/appointments/findAppointment','appointments','find appointments','find','Find appointments')">
+                    <span>Find appointments</span>
+                </li>
+
+                <li th:replace="::menuItem ('/vets/findVet','vets','veterinarians','th-list','Veterinarians')">
+                    <span>Veterinarians</span>
+                </li>
+
+                <li th:replace="::menuItem ('/owners','pet','Manage your pets','manage pets','Owners and pets')">
+                <span>Owners and pets</span>
+                </li>
+
+            </ul>
         </div>
     </div>
+</nav>
+
 
 </html>

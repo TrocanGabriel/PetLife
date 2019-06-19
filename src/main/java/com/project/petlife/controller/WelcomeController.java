@@ -25,8 +25,8 @@ public class WelcomeController {
 
     @GetMapping("/")
     public String welcome(Model model) {
-        ArrayList<Clinic> results = this.clinics.findByName("");
-
+        ArrayList<Clinic> results = this.clinics.getAllBy();
+        System.out.println(results.size());
         System.out.println(results);
         model.addAttribute("clinics", results);
 
@@ -35,15 +35,17 @@ public class WelcomeController {
 
     @GetMapping("/createAppointment/{id}")
     public String addAppointment(@PathVariable  int id, Model model ){
-        ArrayList<Clinic> clinicSelected = this.clinics.findById(id);
+        ArrayList<Clinic> clinicSelected = this.clinics.getById(id);
         Clinic formClinic = clinicSelected.get(0);
         Appointment appointment = new Appointment();
         appointment.setClinic(formClinic);
         Vet vetDummy = new Vet("ion", "x", 2, formClinic);
         Set<Vet> vets = formClinic.getVets();
+        vets.add(vetDummy);
         model.addAttribute("appointment",appointment);
         model.addAttribute("vets",vets);
-
+        model.addAttribute("clinics", clinicSelected);
+        System.out.println("ADD appointment from welcome controller");
         return "appointments/addAppointment";
     }
 

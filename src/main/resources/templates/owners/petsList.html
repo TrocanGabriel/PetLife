@@ -1,0 +1,46 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <link href="../static/css/header.css"
+          th:href="@{/css/header.css}" rel="stylesheet" />
+
+</head>
+<body>
+<div th:replace="fragments/header.html :: layout (~{::body},'owners')"></div>
+
+<h2>Check your pets</h2>
+
+
+
+<div>
+    <h2 style="text-align: center">Pets</h2>
+    <table id="clinics" class="table table-striped">
+        <thead>
+        <tr>
+            <th style="width: 20%;" >Name</th>
+            <th style="width: 20%;">Age</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="pet : ${pets}">
+            <td>
+                <a th:href="@{/pets/__${pet.id}__}" th:text="${vet.name}"/></a>
+            </td>
+            <td th:text="${pet.name}"/>
+            <td th:text="${pet.age}"/>
+
+            <td><form action="#"  th:action = "@{/appointPet/{id}(id=${pet.id})}" method = "POST">
+                <button  >Make appointment</button>
+            </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>

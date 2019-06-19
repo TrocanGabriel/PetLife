@@ -1,0 +1,71 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <link href="../static/css/header.css"
+          th:href="@{/css/header.css}" rel="stylesheet" />
+
+</head>
+<body>
+<div th:replace="fragments/header.html :: layout (~{::body},'vets')"></div>
+
+<h2>Find Veterinarians</h2>
+
+<form th:object="${vet}" th:action="@{/findVets}" method="get"
+      class="form-horizontal" id="search-owner-form">
+    <div class="form-group">
+        <div class="control-group" id="lastNameGroup">
+            <label class="col-sm-2 control-label">Last name</label>
+            <div class="col-sm-10">
+                <input class="form-control" th:field="*{cnp}" size="30"
+                       maxlength="31" /> <span class="help-inline"><div
+                    th:if="${#fields.hasAnyErrors()}">
+              <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
+            </div></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Find
+                Owner</button>
+        </div>
+    </div>
+
+</form>
+
+<div>
+    <h2 style="text-align: center">Veterinarians</h2>
+    <table id="clinics" class="table table-striped">
+        <thead>
+        <tr>
+            <th style="width: 20%;" >Name</th>
+            <th style="width: 20%;">Description</th>
+            <th style="width: 20%;">Pet</th>
+            <th style="width: 20%;">Clinic</th>
+            <th style="width: 20%;">Vet</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="vet : ${vets}">
+            <td>
+                <a th:href="@{/vets/__${vet.id}__}" th:text="${vet.firstName}"/></a>
+            </td>
+            <td th:text="${vet.lastName}"/>
+            <td th:text="${vet.age}"/>
+            <td th:text="${vet.clinic}"/>
+            <td><span th:each="specialty : ${vet.specialties}"
+                      th:text="${specialty.name + ' '}" /> </td>
+            <td><form action="#"  th:action = "@{/appointVet/{id}(id=${vet.id})}" method = "POST">
+                <button  >Delete</button>
+            </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+</body>
+</html>

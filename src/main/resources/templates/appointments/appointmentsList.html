@@ -14,7 +14,7 @@
 
 <div>
 <h2 style="text-align: center">Your Appointments</h2>
-<table id="clinics" class="table table-striped">
+<table id="clinicRepository" class="table table-striped">
     <thead>
     <tr>
         <th style="width: 20%;" >Date</th>
@@ -22,6 +22,9 @@
         <th style="width: 20%;">Pet</th>
         <th style="width: 20%;">Clinic</th>
         <th style="width: 20%;">Vet</th>
+        <th style="width: 20%;">Edit</th>
+        <th style="width: 20%;">Delete</th>
+
     </tr>
     </thead>
     <tbody>
@@ -30,14 +33,14 @@
             <a th:href="@{/appointments/__${appointment.id}__}" th:text="${appointment.date}"/></a>
         </td>
         <td th:text="${appointment.description}"/>
-        <td th:text="${appointment.pet}"/>
-        <td th:text="${appointment.clinic}"/>
-        <td th:text="${appointment.vet}"/>
-        <td><form action="#"  th:action = "@{/editAppointment/{id}(id=${appointment.id})}" method = "POST">
+        <td th:text="${appointment.pet.name}"/>
+        <td th:text="${appointment.clinic.name}"/>
+        <td th:text="${appointment.vet.lastName + ' ' + appointment.vet.firstName}"/>
+        <td><form action="#"  th:action = "@{/appointments/editAppointment/{id}(id=${appointment.id})}" method = "GET">
             <button  >Edit</button>
         </form>
         </td>
-        <td><form action="#"  th:action = "@{/deleteAppointment/{id}(id=${appointment.id})}" method = "POST">
+        <td><form action="#"  th:action = "@{/appointments/deleteAppointment/{id}(id=${appointment.id})}" method = "POST">
             <button  >Delete</button>
         </form>
         </td>

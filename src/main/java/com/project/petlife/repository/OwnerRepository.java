@@ -20,4 +20,7 @@ public interface OwnerRepository extends CrudRepository<Owner,Integer> {
     @Query("SELECT DISTINCT owner from Owner owner where owner.cnp like :ownerCNP%")
     @Transactional
     ArrayList<Owner> findByCNP(@Param("ownerCNP") String ownerCNP);
+
+    Owner getByCnp(String cnp);
 }
+

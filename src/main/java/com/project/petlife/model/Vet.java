@@ -1,6 +1,7 @@
 package com.project.petlife.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "vets")
+@Getter
+@Setter
+
 public class Vet {
 
     public Vet() {
@@ -24,33 +28,24 @@ public class Vet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private int id;
 
     @Column(name = "first_name")
-    @Getter
-    @Setter
     private String firstName;
 
     @Column(name = "last_name")
-    @Getter
-    @Setter
+
     private String lastName;
 
     @Column(name = "age")
-    @Getter
-    @Setter
     private int age;
 
-    @ManyToOne
-    @JoinColumn(name = "clinic_id", nullable = false)
-    @Getter
-    @Setter
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "clinic_id")
+    @JsonBackReference
     private  Clinic clinic;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @Getter
-    @Setter
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Vet_Specialty",
             joinColumns = {@JoinColumn(name = "vet_id")},
@@ -65,5 +60,17 @@ public class Vet {
         this.age = age;
         this.clinic = clinic;
         this.specialties = specialties;
+    }
+
+    @Override
+    public String toString() {
+        return "Vet{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", clinic=" + clinic.getName() +
+                ", specialties=" + specialties.size() +
+                '}';
     }
 }

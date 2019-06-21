@@ -2,6 +2,9 @@ package com.project.petlife.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,9 +56,39 @@ public class Owner {
     @Setter
     private String cnp;
 
-    @OneToMany(mappedBy = "owner")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @Getter
     @Setter
+    @JsonManagedReference
     private Set<Pet> pets;
 
+    public Owner() {
+    }
+
+    public Owner(String lastName, String firstName, String mobile, String email, String address, String city, String cnp, Set<Pet> pets) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.mobile = mobile;
+        this.email = email;
+        this.address = address;
+        this.city = city;
+        this.cnp = cnp;
+        this.pets = pets;
+    }
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", cnp='" + cnp + '\'' +
+                ", pets=" + pets.size() +
+                '}';
+    }
 }

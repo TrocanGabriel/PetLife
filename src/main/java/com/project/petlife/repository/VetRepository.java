@@ -12,4 +12,5 @@ public interface VetRepository  extends CrudRepository<Vet,Integer> {
 
     ArrayList<Vet> getAllBy();
     ArrayList<Vet> findVetsByLastName(String lastName);
+    Vet findVetById(int id);
 }

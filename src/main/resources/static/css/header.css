@@ -43,7 +43,9 @@
 
 /*}*/
 
-
+.formFields{
+    margin-right:5%;
+}
 .clinics{
     margin-top: 5%;
 }
@@ -158,6 +160,7 @@ textarea {
     color: inherit;
     font: inherit;
     margin: 0;
+
 }
 button {
     overflow: visible;
@@ -2580,8 +2583,8 @@ output {
     color: #555555;
 }
 .form-control {
-    display: block;
-    width: 100%;
+    width: 40%;
+    margin-left: 20px;
     height: 34px;
     padding: 6px 12px;
     font-size: 14px;

@@ -1,0 +1,93 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link href="../static/css/header.css"
+          th:href="@{/css/header.css}" rel="stylesheet" />
+
+</head>
+
+<div th:replace="fragments/header.html :: layout (~{::body},'appointments')"></div>
+<div >
+    <h2>Edit Appointment</h2>
+
+
+    <form class="form-horizontal" action="#" th:action="@{/appointments/createAppointment}" th:object="${appointment}" method="POST">
+
+        <div class="form-group blu-margin">
+            <label class=" col-sm-2 control-label">Clinic:    </label>
+            <div class=" col-sm-10">
+                <select class="form-control" th:field="*{clinic.id}"  id="clinicName" required>
+                    <option  th:each="clinic : ${clinics}" th:value="${clinic.id}" th:text="${clinic.id + ' ' + clinic.name}"></option>
+                </select>
+            </div>
+        </div>
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Date Time:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="datetime-local" th:field="*{date}" required/>
+            </div>
+        </div>
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Description:    </label>
+            <div class=" col-sm-10">
+                <textarea rows="4" cols="50"  class="form-control" type="text" th:field="*{description}" required />
+            </div>
+        </div>
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Owner CNP:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="text" th:field="*{owner.cnp}" id="ownerCNP"  readonly="readonly" />
+            </div>
+        </div>
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Pet:    </label>
+            <div class=" col-sm-10">
+                <select  class="form-control" required
+                         th:field="*{pet.id}"  name="pet" id="pet">
+                    <option th:each="pet : ${pets}" th:value="${pet.id}"
+                            th:text="${pet.name}" >
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Vet:    </label>
+            <div class=" col-sm-10">
+                <select class="form-control" th:field="*{vet.id}"  name="vet" id="vet"
+                        required>
+                    <option th:each="vet : ${appointment.clinic.vets}" th:value="${vet.id}" th:text="${vet.firstName + ' ' + vet.lastName}"></option>
+                </select>
+            </div>
+        </div>
+
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+</div>
+<script>
+    $('#clinicName').change(
+        function() {
+            $.getJSON("http://localhost:8080/appointments/getvets", {
+                clinicId: $(this).val()
+                // ajax : 'true'
+            }, function(data) {
+                var vetOptions = '';
+
+                data.forEach(function(vet) {
+                    vetOptions = vetOptions + '<option value="' + vet.id + '">' + vet.lastName + ' ' + vet.firstName + '</option>'
+                });
+
+                $('#vet').html(vetOptions);
+            });
+        });
+
+
+</script>
+</body>
+</html>
+
+

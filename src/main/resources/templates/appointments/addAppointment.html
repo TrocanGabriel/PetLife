@@ -7,43 +7,87 @@
 </head>
 
 <div th:replace="fragments/header.html :: layout (~{::body},'appointments')"></div>
-<div style="margin-top: 9%">
+<div style="margin-top: 9%  text-align: center">
 <h2>Add Appointment</h2>
 
 
-<form action="#" th:action="@{/appointments/createAppointment}" th:object="${appointment}" method="POST">
-<!--    <p>Clinic: <input type="text" th:field="*{clinic.name}"  /></p>-->
-    <div class="form-group blu-margin">
-        <select class="form-control" th:field="*{clinic.name}"  id="name">
-            <option value="0">Select Clinic</option>
-            <option th:each="clinic : ${clinics}" th:value="${clinic.name}" th:text="${clinic.name}"></option>
-        </select>
+<form class="form-horizontal" action="#" th:action="@{/appointments/createAppointment}" th:object="${appointment}" method="POST">
+    <div  class="form-group">
+        <label class=" col-sm-2 control-label">Clinic:    </label>
+        <div class=" col-sm-10">
+            <select required class="form-control" th:field="*{clinic.id}"   id="clinicName">
+                <option  th:each="clinic : ${clinics}" th:value="${clinic.id}" th:text="${clinic.id + ' ' + clinic.name}"></option>
+            </select>
+        </div>
     </div>
-    <p>Description: <input type="text" th:field="*{description}" /></p>
-    <p>Owner CNP: <input type="text" th:field="*{owner.cnp}" id="ownerCNP"/> </p>
-    <div class="form-group">
-        <select  class="form-control" required="required"
-                 th:field="*{pet.id}" name="pet" id="pet">
-            <option value="0">Select your pet</option>
-            <option th:each="pet : ${pets}" th:value="${pet.id}"
-                    th:text="${pet.name}" >
-            </option>
-        </select>
+    <div  class="form-group">
+        <label class=" col-sm-2 control-label">Date Time:    </label>
+        <div class=" col-sm-10">
+            <input class="form-control" type="datetime-local" th:field="*{date}" required/>
+        </div>
+    </div>
+    <div  class="form-group">
+        <label class=" col-sm-2 control-label">Description:    </label>
+        <div class=" col-sm-10">
+            <textarea rows="4" cols="50"  class="form-control" type="text" th:field="*{description}" required />
+        </div>
+    </div>
+    <div  class="form-group">
+        <label class=" col-sm-2 control-label">Owner CNP:    </label>
+        <div class=" col-sm-10">
+            <input class="form-control" type="text" th:field="*{owner.cnp}" id="ownerCNP" required/>
+        </div>
+    </div>
+
+    <div  class="form-group">
+        <label class=" col-sm-2 control-label">Pet:    </label>
+        <div class=" col-sm-10">
+            <select  class="form-control" required th:field="*{pet.id}" name="pet" id="pet" >
+                <option th:each="pet : ${pets}" th:value="${pet.id}"
+                        th:text="${pet.name}" >
+                </option>
+            </select>
+        </div>
     </div>
 
 
 
-    <div class="form-group blu-margin">
-    <select class="form-control" th:field="*{vet.id}"  id="vet">
-        <option value="0">Select Vet</option>
-        <option th:each="vet : ${vets}" th:value="${vet.id}" th:text="${vet.firstName + ' ' + vet.lastName}"></option>
-    </select>
+
+    <div  class="form-group">
+        <label class=" col-sm-2 control-label">Vet:    </label>
+        <div class=" col-sm-10">
+            <select required class="form-control" th:field="*{vet.id}"  id="vet">
+                <option th:each="vet : ${vets}" th:value="${vet.id}" th:text="${vet.firstName + ' ' + vet.lastName}"></option>
+            </select>
+        </div>
     </div>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+
+    <div style="margin-left: 5%">
+        <input  type="submit" value="Submit" />
+        <input type="reset" value="Reset" />
+    </div>
+
 </form>
 
 </div>
 <script>
+    $('#clinicName').change(
+        function() {
+            $.getJSON("http://localhost:8080/appointments/getvets", {
+                clinicId: $(this).val()
+                // ajax : 'true'
+            }, function(data) {
+                var vetOptions = '';
+
+                data.forEach(function(vet) {
+                    vetOptions = vetOptions + '<option value="' + vet.id + '">' + vet.lastName + ' ' + vet.firstName + '</option>'
+                });
+
+                $('#vet').html(vetOptions);
+            });
+        });
+
     $('#ownerCNP').change(
         function() {
             $.getJSON("http://localhost:8080/appointments/getpet", {

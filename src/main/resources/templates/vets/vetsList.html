@@ -16,7 +16,7 @@
         <div class="control-group" id="lastNameGroup">
             <label class="col-sm-2 control-label">Last name</label>
             <div class="col-sm-10">
-                <input class="form-control" th:field="*{cnp}" size="30"
+                <input class="form-control" th:field="*{lastName}" size="30"
                        maxlength="31" /> <span class="help-inline"><div
                     th:if="${#fields.hasAnyErrors()}">
               <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
@@ -27,7 +27,7 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default">Find
-                Owner</button>
+                Vet</button>
         </div>
     </div>
 
@@ -35,14 +35,16 @@
 
 <div>
     <h2 style="text-align: center">Veterinarians</h2>
-    <table id="clinics" class="table table-striped">
+    <table id="clinicRepository" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 20%;" >Name</th>
-            <th style="width: 20%;">Description</th>
-            <th style="width: 20%;">Pet</th>
-            <th style="width: 20%;">Clinic</th>
-            <th style="width: 20%;">Vet</th>
+            <th style="width: 19%;" >First Name</th>
+            <th style="width: 19%;">Last Name</th>
+            <th style="width: 19%;">Age</th>
+            <th style="width: 19%;">Clinic</th>
+            <th style="width: 19%;">Specialties</th>
+            <th style="width: 19%;">Appointment</th>
+
         </tr>
         </thead>
         <tbody>
@@ -52,11 +54,11 @@
             </td>
             <td th:text="${vet.lastName}"/>
             <td th:text="${vet.age}"/>
-            <td th:text="${vet.clinic}"/>
+            <td th:text="${vet.clinic.name}"/>
             <td><span th:each="specialty : ${vet.specialties}"
                       th:text="${specialty.name + ' '}" /> </td>
             <td><form action="#"  th:action = "@{/appointVet/{id}(id=${vet.id})}" method = "POST">
-                <button  >Delete</button>
+                <button >Make appointment</button>
             </form>
             </td>
 

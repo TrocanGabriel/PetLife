@@ -39,9 +39,7 @@ public class WelcomeController {
         Clinic formClinic = clinicSelected.get(0);
         Appointment appointment = new Appointment();
         appointment.setClinic(formClinic);
-        Vet vetDummy = new Vet("ion", "x", 2, formClinic);
         Set<Vet> vets = formClinic.getVets();
-        vets.add(vetDummy);
         model.addAttribute("appointment",appointment);
         model.addAttribute("vets",vets);
         model.addAttribute("clinics", clinicSelected);

@@ -11,7 +11,7 @@
 
 <h2>Find Owners</h2>
 
-<form th:object="${owner}" th:action="@{/findOwners}" method="get"
+<form th:object="${owner}" th:action="@{findOwners}" method="get"
       class="form-horizontal" id="search-owner-form">
     <div class="form-group">
         <div class="control-group" id="lastNameGroup">
@@ -44,21 +44,21 @@
             <th style="width: 15%;">Email</th>
             <th style="width: 15%;">City</th>
             <th style="width: 20%;">Address</th>
+            <th style="width: 20%;">Pets</th>
+
 
         </tr>
         </thead>
         <tbody>
         <tr  th:each="owner : ${owners}">
-            <td>
-                <a th:href="@{/owners/__${owner.id}__}" th:text="${owner.lastName}"/></a>
-            </td>
+            <td th:text="${owner.lastName}"/>
             <td th:text="${owner.firstName}"/>
             <td th:text="${owner.mobile}"/>
             <td th:text="${owner.email}"/>
             <td th:text="${owner.city}"/>
             <td th:text="${owner.address}"/>
 
-            <td><form action="#"  th:action = "@{/checkPets/{id}(id=${owner.id})}" method = "POST">
+            <td><form action="#"  th:action = "@{checkPets/{id}(id=${owner.id})}" method = "GET">
                 <button  >Check pets</button>
             </form>
             </td>

@@ -28,19 +28,22 @@
     </tr>
     </thead>
     <tbody>
-    <tr  th:each="appointment : ${ownerAppointments}">
-        <td>
-            <a th:href="@{/appointments/__${appointment.id}__}" th:text="${appointment.date}"/></a>
-        </td>
-        <td th:text="${appointment.description}"/>
-        <td th:text="${appointment.pet.name}"/>
+    <tr  th:each="appointment : ${ownerAppointments} ">
+
+        <td th:text="${appointment.appointmentDetails.date}"/>
+        <td th:text="${appointment.appointmentDetails.description}"/>
+    <td th:each="pet : ${pets}" th:if="${pet.id == appointment.petId}">
+        <p th:text ="${pet.name}"></p>
+    </td>
         <td th:text="${appointment.clinic.name}"/>
-        <td th:text="${appointment.vet.lastName + ' ' + appointment.vet.firstName}"/>
+        <td th:each=" vet : ${vets}" th:if="${vet.id == appointment.vetId}">
+            <p th:text="${vet.lastName + ' ' + vet.firstName}"></p>
+        </td>
         <td><form action="#"  th:action = "@{/appointments/editAppointment/{id}(id=${appointment.id})}" method = "GET">
             <button  >Edit</button>
         </form>
         </td>
-        <td><form action="#"  th:action = "@{/appointments/deleteAppointment/{id}(id=${appointment.id})}" method = "POST">
+        <td><form action="#"  th:action = "@{/appointments/deleteAppointment/{id}(id=${appointment.id})}" method = "DELETE">
             <button  >Delete</button>
         </form>
         </td>

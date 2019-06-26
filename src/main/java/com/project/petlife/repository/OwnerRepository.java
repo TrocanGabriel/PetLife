@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Optional;
 
 @Repository
 public interface OwnerRepository extends CrudRepository<Owner,Integer> {
@@ -19,8 +19,9 @@ public interface OwnerRepository extends CrudRepository<Owner,Integer> {
 
     @Query("SELECT DISTINCT owner from Owner owner where owner.cnp like :ownerCNP%")
     @Transactional
-    ArrayList<Owner> findByCNP(@Param("ownerCNP") String ownerCNP);
+    Optional<Owner> findByCNP(@Param("ownerCNP") String ownerCNP);
 
-    Owner getByCnp(String cnp);
+    @Override
+    Optional<Owner> findById(Integer integer);
 }
 

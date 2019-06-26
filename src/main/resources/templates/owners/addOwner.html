@@ -1,0 +1,70 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <link href="../static/css/header.css"
+          th:href="@{/css/header.css}" rel="stylesheet" />
+
+</head>
+
+<div th:replace="fragments/header.html :: layout (~{::body},'owners')"></div>
+<div style="margin-top: 9%  text-align: center">
+    <h2>Add Owner</h2>
+
+
+    <form class="form-horizontal" action="#" th:action="@{/owners/addOwner}" th:object="${owner}" method="POST">
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Last name:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="text" th:field="*{lastName}" required/>
+
+            </div>
+        </div>
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">First name:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="text" th:field="*{firstName}" required/>
+            </div>
+        </div>
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">CNP:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="text" th:field="*{cnp}"  required/>
+            </div>
+        </div>
+
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Mobile:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="text" th:field="*{mobile}" required/>
+            </div>
+        </div>
+               <div  class="form-group">
+            <label class=" col-sm-2 control-label">Email:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="text" th:field="*{email}"  required/>
+            </div>
+        </div>
+
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">City:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="text" th:field="*{city}" id="city" required/>
+            </div>
+        </div>
+
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Address:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="text" th:field="*{address}"  required/>
+            </div>
+
+
+        <div style="margin-left: 5%">
+            <input  type="submit" value="Submit" />
+            <input type="reset" value="Reset" />
+        </div>
+
+    </form>
+</div>
+
+</html>

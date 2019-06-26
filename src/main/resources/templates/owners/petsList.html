@@ -19,18 +19,15 @@
         <tr>
             <th style="width: 20%;" >Name</th>
             <th style="width: 20%;">Age</th>
-
+            <th style="width: 20%;">Appointments</th>
         </tr>
         </thead>
         <tbody>
         <tr  th:each="pet : ${pets}">
-            <td>
-                <a th:href="@{/pets/__${pet.id}__}" th:text="${vet.name}"/></a>
-            </td>
             <td th:text="${pet.name}"/>
             <td th:text="${pet.age}"/>
 
-            <td><form action="#"  th:action = "@{/appointPet/{id}(id=${pet.id})}" method = "POST">
+            <td><form action="#"  th:action = "@{owners/appointPet/{id}(id=${pet.id})}" method = "GET">
                 <button  >Make appointment</button>
             </form>
             </td>
@@ -39,6 +36,7 @@
         </tbody>
     </table>
 </div>
+<a class="btn btn-default" href="#" th:href="@{/owners/newPet/{id}(id=${owner_id})}">Add Pet</a>
 
 
 

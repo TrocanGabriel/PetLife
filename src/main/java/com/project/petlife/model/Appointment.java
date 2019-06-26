@@ -1,13 +1,10 @@
 package com.project.petlife.model;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.websocket.server.ServerEndpoint;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "appointments")
@@ -19,27 +16,21 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime date;
+    @OneToOne(mappedBy = "appointment",cascade = CascadeType.ALL,
+    fetch = FetchType.EAGER)
+    private AppointmentDetails appointmentDetails;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "vet_id")
+    private int vetId;
 
-    @JoinColumn(name = "vet_id")
-    @OneToOne(cascade = CascadeType.DETACH)
-    private Vet vet;
+    @Column(name = "pet_id")
+    private int petId;
 
-    @JoinColumn(name = "pet_id")
-    @OneToOne(cascade = CascadeType.DETACH)
-    private Pet pet;
-
-    @JoinColumn(name = "owner_cnp")
-    @OneToOne( cascade=CascadeType.DETACH)
-    private Owner owner;
+    @Column(name = "owner_cnp")
+    private String ownerCnp;
 
     @JoinColumn(name = "clinic_id")
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne
     private Clinic clinic;
 
     public Appointment() {
@@ -49,21 +40,20 @@ public class Appointment {
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
-                ", date=" + date +
-                ", description='" + description + '\'' +
-                ", vet=" + vet.getLastName() +
-                ", pet=" + pet.getName() +
-                ", owner=" + owner.getCnp() +
+                ", date=" + appointmentDetails.getDate() +
+                ", description='" + appointmentDetails.getDescription() + '\'' +
+                ", vet=" + vetId +
+                ", pet=" + petId +
+                ", owner=" + ownerCnp +
                 ", clinic=" + clinic.getId() +
                 '}';
     }
 
-    public Appointment(LocalDateTime date, String description, Vet vet, Pet pet, Owner owner, Clinic clinic) {
-        this.date = date;
-        this.description = description;
-        this.vet = vet;
-        this.pet = pet;
-        this.owner = owner;
+    public Appointment(AppointmentDetails appointmentDetails, int vet_id, int pet_id,String owner_cnp, Clinic clinic) {
+        this.appointmentDetails = appointmentDetails;
+        this.vetId = vet_id;
+        this.petId = pet_id;
+        this.ownerCnp = owner_cnp;
         this.clinic = clinic;
     }
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @Repository
 public interface AppointmentRepository extends CrudRepository<Appointment,Integer> {
 
-    ArrayList<Appointment> findByOwnerCnp(String ownerCNP);
+    ArrayList<Appointment> findByOwnerCnp(String owner_cnp);
     Appointment findById(int id);
 
     Boolean findFirstById(int id);

@@ -12,6 +12,7 @@
 
 
 <form class="form-horizontal" action="#" th:action="@{/appointments/createAppointment}" th:object="${appointment}" method="POST">
+    <input type="hidden" name="id" th:value="*{id}" />
     <div  class="form-group">
         <label class=" col-sm-2 control-label">Clinic:    </label>
         <div class=" col-sm-10">
@@ -20,29 +21,32 @@
             </select>
         </div>
     </div>
-    <div  class="form-group">
-        <label class=" col-sm-2 control-label">Date Time:    </label>
-        <div class=" col-sm-10">
-            <input class="form-control" type="datetime-local" th:field="*{date}" required/>
+    <div th:object="${appointmentDetails}">
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Date Time:    </label>
+            <div class=" col-sm-10">
+                <input class="form-control" type="datetime-local" th:field="*{date}" name ="date" required/>
+            </div>
+        </div>
+        <div  class="form-group">
+            <label class=" col-sm-2 control-label">Description:    </label>
+            <div class=" col-sm-10">
+                <textarea rows="4" cols="50"  class="form-control" type="text" th:field="*{description}" name="description" required />
+            </div>
         </div>
     </div>
-    <div  class="form-group">
-        <label class=" col-sm-2 control-label">Description:    </label>
-        <div class=" col-sm-10">
-            <textarea rows="4" cols="50"  class="form-control" type="text" th:field="*{description}" required />
-        </div>
-    </div>
+
     <div  class="form-group">
         <label class=" col-sm-2 control-label">Owner CNP:    </label>
         <div class=" col-sm-10">
-            <input class="form-control" type="text" th:field="*{owner.cnp}" id="ownerCNP" required/>
+            <input class="form-control" type="text" th:field="*{ownerCnp}" id="ownerCNP" required/>
         </div>
     </div>
 
     <div  class="form-group">
         <label class=" col-sm-2 control-label">Pet:    </label>
         <div class=" col-sm-10">
-            <select  class="form-control" required th:field="*{pet.id}" name="pet" id="pet" >
+            <select  class="form-control" required th:field="*{petId}" name="petId" id="pet" >
                 <option th:each="pet : ${pets}" th:value="${pet.id}"
                         th:text="${pet.name}" >
                 </option>
@@ -56,7 +60,7 @@
     <div  class="form-group">
         <label class=" col-sm-2 control-label">Vet:    </label>
         <div class=" col-sm-10">
-            <select required class="form-control" th:field="*{vet.id}"  id="vet">
+            <select required class="form-control" th:field="*{vetId}"  id="vet">
                 <option th:each="vet : ${vets}" th:value="${vet.id}" th:text="${vet.firstName + ' ' + vet.lastName}"></option>
             </select>
         </div>

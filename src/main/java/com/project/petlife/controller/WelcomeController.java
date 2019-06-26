@@ -43,6 +43,7 @@ public class WelcomeController {
         model.addAttribute("appointment",appointment);
         model.addAttribute("vets",vets);
         model.addAttribute("clinics", clinicSelected);
+        model.addAttribute("appointmentDetails",new AppointmentDetails());
         System.out.println("ADD appointment from welcome controller");
         return "appointments/addAppointment";
     }

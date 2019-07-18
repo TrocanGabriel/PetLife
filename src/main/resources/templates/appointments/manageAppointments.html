@@ -14,20 +14,19 @@
       class="form-horizontal" id="search-owner-form">
     <div class="form-group">
         <div class="control-group" id="lastNameGroup">
-            <label class="col-sm-2 control-label">Client CNP</label>
+            <label class="col-sm-2 control-label">Owner CNP</label>
             <div class="col-sm-10">
-                <input class="form-control" th:field="*{owner.cnp}" size="30"
-                       maxlength="80" /> <span class="help-inline"><div
-                    th:if="${#fields.hasAnyErrors()}">
-              <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
-            </div></span>
+                <input class="form-control" th:field="*{owner.cnp}" size="13"
+                       maxlength="13" required />
+                <td th:if="${#fields.hasErrors('owner.cnp')}" th:errors="*{owner.cnp}">
+                    Error</td>
+
             </div>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Find
-                Appointment</button>
+            <button type="submit" class="btn btn-default">Find Appointment</button>
         </div>
     </div>
 

@@ -19,6 +19,8 @@
             <select required class="form-control" th:field="*{clinic.id}"   id="clinicName">
                 <option  th:each="clinic : ${clinics}" th:value="${clinic.id}" th:text="${clinic.id + ' ' + clinic.name}"></option>
             </select>
+            <td th:if="${#fields.hasErrors('clinic.id')}" th:errors="*{clinic.id}">clinic
+                Error</td>
         </div>
     </div>
     <div th:object="${appointmentDetails}">
@@ -26,12 +28,16 @@
             <label class=" col-sm-2 control-label">Date Time:    </label>
             <div class=" col-sm-10">
                 <input class="form-control" type="datetime-local" th:field="*{date}" name ="date" required/>
+                <td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">date
+                    Error</td>
             </div>
         </div>
         <div  class="form-group">
             <label class=" col-sm-2 control-label">Description:    </label>
             <div class=" col-sm-10">
                 <textarea rows="4" cols="50"  class="form-control" type="text" th:field="*{description}" name="description" required />
+                <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">desc
+                    Error</td>
             </div>
         </div>
     </div>
@@ -39,19 +45,24 @@
     <div  class="form-group">
         <label class=" col-sm-2 control-label">Owner CNP:    </label>
         <div class=" col-sm-10">
-            <input class="form-control" type="text" th:field="*{ownerCnp}" id="ownerCNP" required/>
+            <input class="form-control" type="text" th:field="*{owner.cnp}" id="ownerCNP" required/>
+            <td th:if="${#fields.hasErrors('owner.cnp')}" th:errors="*{owner.cnp}">cnp
+                Error</td>
         </div>
     </div>
 
     <div  class="form-group">
         <label class=" col-sm-2 control-label">Pet:    </label>
         <div class=" col-sm-10">
-            <select  class="form-control" required th:field="*{petId}" name="petId" id="pet" >
+            <select  class="form-control" required th:field="*{pet.id}" name="pet" id="pet" >
                 <option th:each="pet : ${pets}" th:value="${pet.id}"
                         th:text="${pet.name}" >
                 </option>
             </select>
+            <td th:if="${#fields.hasErrors('pet.id')}" th:errors="*{pet.id}">pet
+                Error</td>
         </div>
+
     </div>
 
 
@@ -63,6 +74,8 @@
             <select required class="form-control" th:field="*{vetId}"  id="vet">
                 <option th:each="vet : ${vets}" th:value="${vet.id}" th:text="${vet.firstName + ' ' + vet.lastName}"></option>
             </select>
+            <td th:if="${#fields.hasErrors('vetId')}" th:errors="*{vetId}">mobile
+                Error</td>
         </div>
     </div>
 
@@ -76,6 +89,16 @@
 
 </div>
 <script>
+
+    $(document).ready(function() {
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+
     $('#clinicName').change(
         function() {
             $.getJSON("http://localhost:8080/appointments/getvets", {

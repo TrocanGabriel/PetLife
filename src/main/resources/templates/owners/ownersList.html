@@ -45,6 +45,8 @@
             <th style="width: 15%;">City</th>
             <th style="width: 20%;">Address</th>
             <th style="width: 20%;">Pets</th>
+            <th style="width: 10%;">Delete</th>
+
 
 
         </tr>
@@ -58,8 +60,12 @@
             <td th:text="${owner.city}"/>
             <td th:text="${owner.address}"/>
 
-            <td><form action="#"  th:action = "@{checkPets/{id}(id=${owner.id})}" method = "GET">
-                <button  >Check pets</button>
+            <td><form action="#"  th:action = "@{/checkPets/{id}(id=${owner.id})}" method = "GET">
+            <button  >Check pets</button>
+              </form>
+            </td>
+            <td><form action="#"  th:action = "@{/deleteOwner/{id}(id=${owner.id})}" th:method = "DELETE">
+                <button  >Delete</button>
             </form>
             </td>
 

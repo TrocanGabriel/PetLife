@@ -1,12 +1,10 @@
 package com.project.petlife.repository;
 
 import com.project.petlife.model.Vet;
-import org.omg.CORBA.ARG_IN;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Repository

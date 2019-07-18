@@ -11,24 +11,29 @@
     <h2>Add Owner</h2>
 
 
-    <form class="form-horizontal" action="#" th:action="@{/owners/addOwner}" th:object="${owner}" method="POST">
+    <form class="form-horizontal" action="#" th:action="@{/owners/new}" th:object="${owner}" method="POST">
         <div  class="form-group">
             <label class=" col-sm-2 control-label">Last name:    </label>
             <div class=" col-sm-10">
                 <input class="form-control" type="text" th:field="*{lastName}" required/>
-
+                <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">last name
+                    Error</td>
             </div>
         </div>
         <div  class="form-group">
             <label class=" col-sm-2 control-label">First name:    </label>
             <div class=" col-sm-10">
                 <input class="form-control" type="text" th:field="*{firstName}" required/>
+                <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">first name
+                    Error</td>
             </div>
         </div>
         <div  class="form-group">
             <label class=" col-sm-2 control-label">CNP:    </label>
             <div class=" col-sm-10">
                 <input class="form-control" type="text" th:field="*{cnp}"  required/>
+                <td th:if="${#fields.hasErrors('cnp')}" th:errors="*{cnp}">cnp
+                    Error</td>
             </div>
         </div>
 
@@ -36,12 +41,16 @@
             <label class=" col-sm-2 control-label">Mobile:    </label>
             <div class=" col-sm-10">
                 <input class="form-control" type="text" th:field="*{mobile}" required/>
+                <td th:if="${#fields.hasErrors('mobile')}" th:errors="*{mobile}">mobile
+                    Error</td>
             </div>
         </div>
                <div  class="form-group">
             <label class=" col-sm-2 control-label">Email:    </label>
             <div class=" col-sm-10">
                 <input class="form-control" type="text" th:field="*{email}"  required/>
+                <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email
+                    Error</td>
             </div>
         </div>
 
@@ -49,6 +58,8 @@
             <label class=" col-sm-2 control-label">City:    </label>
             <div class=" col-sm-10">
                 <input class="form-control" type="text" th:field="*{city}" id="city" required/>
+                <td th:if="${#fields.hasErrors('city')}" th:errors="*{city}">city
+                    Error</td>
             </div>
         </div>
 
@@ -56,6 +67,8 @@
             <label class=" col-sm-2 control-label">Address:    </label>
             <div class=" col-sm-10">
                 <input class="form-control" type="text" th:field="*{address}"  required/>
+                <td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">address
+                    Error</td>
             </div>
 
 

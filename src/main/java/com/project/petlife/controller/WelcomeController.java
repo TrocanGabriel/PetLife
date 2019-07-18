@@ -1,41 +1,40 @@
 package com.project.petlife.controller;
 
+import com.oracle.tools.packager.Log;
 import com.project.petlife.model.*;
 import com.project.petlife.repository.ClinicRepository;
-import com.project.petlife.repository.OwnerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Controller
+@Slf4j
 public class WelcomeController {
 
-    private final ClinicRepository clinics;
+    private final ClinicRepository clinicRepository;
 
     public WelcomeController(ClinicRepository clinicService) {
-        this.clinics = clinicService;
+        this.clinicRepository = clinicService;
     }
 
     @GetMapping("/")
     public String welcome(Model model) {
-        ArrayList<Clinic> results = this.clinics.getAllBy();
+        log.info("Welcome to PetLife App");
+        ArrayList<Clinic> results = this.clinicRepository.getAllBy();
         System.out.println(results.size());
-        System.out.println(results);
         model.addAttribute("clinics", results);
-
         return "welcome";
     }
 
     @GetMapping("/createAppointment/{id}")
     public String addAppointment(@PathVariable  int id, Model model ){
-        ArrayList<Clinic> clinicSelected = this.clinics.getById(id);
+        log.info("Calling method addAppointment! Creating appointment for clinic with id: {}", id);
+        ArrayList<Clinic> clinicSelected = this.clinicRepository.getById(id);
+        Log.info("Creating appointment from clinic");
         Clinic formClinic = clinicSelected.get(0);
         Appointment appointment = new Appointment();
         appointment.setClinic(formClinic);

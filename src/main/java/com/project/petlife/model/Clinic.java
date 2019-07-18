@@ -5,9 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -25,19 +30,26 @@ public class Clinic {
     private int id;
 
     @Column(name = "name")
+    @NotNull
     private String name;
 
     @Column(name = "address")
+    @NotNull
     private String address;
 
     @Column(name = "phone")
+    @NotNull
     private String phone;
 
     @Column(name = "program_start")
-    private int programStart;
+    @DateTimeFormat(pattern = "HH:mm")
+    @NotNull
+    private Timestamp programStart;
 
-    @Column(name = "program_end")
-    private int programEnd;
+    @Column(name = "program_end" )
+    @DateTimeFormat(pattern = "HH:mm")
+    @NotNull
+    private Timestamp programEnd;
 
     @JsonIgnore
     @OneToMany(mappedBy = "clinic")
@@ -49,7 +61,15 @@ public class Clinic {
     private Set<Appointment> appointments;
 
 
-    public Clinic(String name, String address, String phone, int programStart, int programEnd, Set<Vet> vets) {
+    public Clinic(@NotNull String name, @NotNull String address, @NotNull String phone, @NotNull Timestamp programStart, @NotNull Timestamp programEnd) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.programStart = programStart;
+        this.programEnd = programEnd;
+    }
+
+    public Clinic(String name, String address, String phone, Timestamp programStart, Timestamp programEnd, Set<Vet> vets) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -68,7 +88,7 @@ public class Clinic {
                 ", programStart=" + programStart +
                 ", programEnd=" + programEnd +
                 ", vets=" + vets.size() +
-                ", appointments=" + appointments.size() +
+                ", appointments=" + appointments.toString() +
                 '}';
     }
 }

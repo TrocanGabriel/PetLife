@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface PetRepository extends CrudRepository<Pet,Integer> {
-    @Query(value = "select * from pets pet join owners owner on (pet.owner_cnp = owner.cnp) where owner.cnp = :cnp", nativeQuery = true)
+    @Query(value = "select * from pets pet join owners owner on (pet.owner_id = owner.id) where owner.cnp = :cnp", nativeQuery = true)
     ArrayList<Pet> findByOwnerCNP(String cnp);
 
     Pet findByNameAndOwnerCnp(String name, String cnp);

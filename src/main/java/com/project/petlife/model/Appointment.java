@@ -1,16 +1,20 @@
 package com.project.petlife.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "appointments")
 @Getter
 @Setter
-public class Appointment {
+public class Appointment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,19 +22,30 @@ public class Appointment {
 
     @OneToOne(mappedBy = "appointment",cascade = CascadeType.ALL,
     fetch = FetchType.EAGER)
+    @JsonManagedReference
     private AppointmentDetails appointmentDetails;
 
     @Column(name = "vet_id")
+    @NotNull
     private int vetId;
 
-    @Column(name = "pet_id")
-    private int petId;
+    @JoinColumn(name = "pet_id")
+    @NotNull
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JsonBackReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private Pet pet;
 
-    @Column(name = "owner_cnp")
-    private String ownerCnp;
+    @JoinColumn(name = "owner_cnp", referencedColumnName ="cnp")
+    @NotNull
+    @JsonBackReference
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne( fetch = FetchType.EAGER)
+    private Owner owner;
 
     @JoinColumn(name = "clinic_id")
     @ManyToOne
+    @NotNull
     private Clinic clinic;
 
     public Appointment() {
@@ -43,17 +58,17 @@ public class Appointment {
                 ", date=" + appointmentDetails.getDate() +
                 ", description='" + appointmentDetails.getDescription() + '\'' +
                 ", vet=" + vetId +
-                ", pet=" + petId +
-                ", owner=" + ownerCnp +
+                ", pet=" + pet.getName() +
+                ", owner=" + owner.getCnp() +
                 ", clinic=" + clinic.getId() +
                 '}';
     }
 
-    public Appointment(AppointmentDetails appointmentDetails, int vet_id, int pet_id,String owner_cnp, Clinic clinic) {
+    public Appointment(AppointmentDetails appointmentDetails, int vet_id, Pet pet,Owner owner, Clinic clinic) {
         this.appointmentDetails = appointmentDetails;
         this.vetId = vet_id;
-        this.petId = pet_id;
-        this.ownerCnp = owner_cnp;
+        this.pet = pet;
+        this.owner = owner;
         this.clinic = clinic;
     }
 }

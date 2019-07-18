@@ -13,7 +13,7 @@
 
 
 <div>
-<h2 style="text-align: center">Your Appointments</h2>
+<h2 style="text-align: center" th:object="${owner}"th:text="${owner.firstName + ' ' + owner.lastName + ' appointments'}"></h2>
 <table id="clinicRepository" class="table table-striped">
     <thead>
     <tr>
@@ -30,11 +30,9 @@
     <tbody>
     <tr  th:each="appointment : ${ownerAppointments} ">
 
-        <td th:text="${appointment.appointmentDetails.date}"/>
-        <td th:text="${appointment.appointmentDetails.description}"/>
-    <td th:each="pet : ${pets}" th:if="${pet.id == appointment.petId}">
-        <p th:text ="${pet.name}"></p>
-    </td>
+        <td th:text="${#temporals.format(appointment.appointmentDetails.date, 'dd/MMM/yyyy HH:mm')}"/>
+        <td style="word-break: break-word" th:text="${appointment.appointmentDetails.description}"/>
+        <td th:text="${appointment.pet.name}"/>
         <td th:text="${appointment.clinic.name}"/>
         <td th:each=" vet : ${vets}" th:if="${vet.id == appointment.vetId}">
             <p th:text="${vet.lastName + ' ' + vet.firstName}"></p>
@@ -43,7 +41,7 @@
             <button  >Edit</button>
         </form>
         </td>
-        <td><form action="#"  th:action = "@{/appointments/deleteAppointment/{id}(id=${appointment.id})}" method = "DELETE">
+        <td><form action="#"  th:action = "@{/appointments/deleteAppointment/{id}(id=${appointment.id})}" th:method = "DELETE">
             <button  >Delete</button>
         </form>
         </td>

@@ -2,10 +2,12 @@ package com.project.petlife.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,18 +33,21 @@ public class Vet {
     private int id;
 
     @Column(name = "first_name")
+    @NotNull
     private String firstName;
 
     @Column(name = "last_name")
-
+    @NotNull
     private String lastName;
 
     @Column(name = "age")
+    @NotNull
     private int age;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "clinic_id")
     @JsonBackReference
+    @NotNull
     private  Clinic clinic;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -51,6 +56,8 @@ public class Vet {
             joinColumns = {@JoinColumn(name = "vet_id")},
             inverseJoinColumns = {@JoinColumn(name = "specialty_id")}
     )
+    @JsonBackReference
+    @NotNull
     private Set<Specialty> specialties = new HashSet<>();
 
 
